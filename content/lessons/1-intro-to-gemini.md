@@ -1,5 +1,5 @@
 ---
-slug: intro-to-gemini
+slug: 1-intro-to-gemini
 order: 1
 title: "Getting Started with Gemini by Google"
 whyItMatters: |
