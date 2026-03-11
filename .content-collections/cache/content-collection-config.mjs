@@ -1,10 +1,11 @@
 // content-collections.ts
 import { defineCollection, defineConfig } from "@content-collections/core";
+import { z } from "zod";
 var lessons = defineCollection({
   name: "lessons",
   directory: "content/lessons",
   include: "**/*.md",
-  schema: (z) => ({
+  schema: z.object({
     slug: z.string(),
     order: z.number(),
     title: z.string(),
