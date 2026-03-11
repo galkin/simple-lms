@@ -1,5 +1,4 @@
 import { ParsedQuestion, LessonQuestionState } from "@/types/lesson";
-import { getQuestionKey } from "@/lib/progressStorage";
 
 interface QuestionItemProps {
   question: ParsedQuestion;
@@ -16,7 +15,7 @@ export function QuestionItem({ question, lessonSlug, state, readOnly, onAnswer }
 
   return (
     <div className="mb-8 last:mb-0">
-      <p className="font-heading text-sm font-semibold mb-4 text-card-foreground">
+      <p className="font-heading text-sm font-semibold mb-4 text-foreground">
         {question.prompt}
       </p>
       <div className="flex flex-col gap-2">
@@ -24,20 +23,16 @@ export function QuestionItem({ question, lessonSlug, state, readOnly, onAnswer }
           const isSelected = state?.selectedAnswerIndex === optIndex;
           const isCorrectOption = optIndex === question.correctAnswerIndex;
 
-          let optionClasses = "w-full text-left px-4 py-3 border-2 font-body text-sm transition-all duration-100 ";
+          let optionClasses = "w-full text-left px-4 py-3 rounded-lg font-body text-sm transition-all duration-150 border ";
 
           if (isLocked && isCorrectOption) {
-            // Correct answer shown
-            optionClasses += "border-success bg-success/10 text-card-foreground";
+            optionClasses += "border-success/40 bg-success/8 text-foreground";
           } else if (isSelected && isAnsweredIncorrectly) {
-            // Wrong answer selected
-            optionClasses += "border-destructive bg-destructive/10 text-card-foreground";
+            optionClasses += "border-destructive/40 bg-destructive/8 text-foreground";
           } else if (isLocked) {
-            // Other options in locked state
             optionClasses += "border-border/50 text-muted-foreground opacity-50";
           } else {
-            // Active option
-            optionClasses += "border-border text-card-foreground hover:border-primary/50 cursor-pointer";
+            optionClasses += "border-border text-foreground hover:border-primary/40 hover:bg-secondary/50 cursor-pointer";
           }
 
           return (
@@ -50,15 +45,21 @@ export function QuestionItem({ question, lessonSlug, state, readOnly, onAnswer }
               }}
             >
               <span className="flex items-center gap-3">
-                <span className="font-heading text-xs w-5 h-5 flex items-center justify-center border border-current shrink-0">
+                <span className={`font-heading text-xs w-6 h-6 flex items-center justify-center rounded-full shrink-0 border ${
+                  isLocked && isCorrectOption
+                    ? "border-success/60 bg-success/15 text-success"
+                    : isSelected && isAnsweredIncorrectly
+                    ? "border-destructive/60 bg-destructive/15 text-destructive"
+                    : "border-border bg-muted/50 text-muted-foreground"
+                }`}>
                   {String.fromCharCode(65 + optIndex)}
                 </span>
                 <span>{option}</span>
                 {isLocked && isCorrectOption && (
-                  <span className="ml-auto text-success text-lg">✓</span>
+                  <span className="ml-auto text-success font-semibold text-sm">✓</span>
                 )}
                 {isSelected && isAnsweredIncorrectly && (
-                  <span className="ml-auto text-destructive text-lg">✗</span>
+                  <span className="ml-auto text-destructive font-semibold text-sm">✗</span>
                 )}
               </span>
             </button>
