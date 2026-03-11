@@ -22,11 +22,11 @@ import {
 } from "@/components/ui/accordion";
 
 const SECTION_LABELS: Record<string, string> = {
-  whyItMatters: "Why It Matters",
-  theory: "Theory",
-  practice: "Practice",
-  selfCheck: "Self-Check",
-  additionalInfo: "Additional Information",
+  whyItMatters: "Почему это важно",
+  theory: "Теория",
+  practice: "Практика",
+  selfCheck: "Проверка себя",
+  additionalInfo: "Дополнительно",
 };
 
 const SECTION_ICONS: Record<string, string> = {
@@ -37,8 +37,12 @@ const SECTION_ICONS: Record<string, string> = {
   additionalInfo: "📌",
 };
 
-export default function LessonPage() {
-  const { slug } = useParams<{ slug: string }>();
+interface LessonPageProps {
+  defaultSlug?: string;
+}
+
+export default function LessonPage({ defaultSlug }: LessonPageProps) {
+  const { slug: routeSlug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
   const sortedLessons = useMemo(
@@ -47,6 +51,7 @@ export default function LessonPage() {
   );
 
   const lessonSlugs = useMemo(() => sortedLessons.map((l) => l.slug), [sortedLessons]);
+  const activeSlug = routeSlug ?? defaultSlug ?? sortedLessons[0]?.slug;
 
   const [progressStates, setProgressStates] = useState<Record<string, LessonProgressState>>(() =>
     initializeProgress(lessonSlugs, loadProgressStates())
@@ -67,11 +72,11 @@ export default function LessonPage() {
   }, [questionStates]);
 
   const lesson = useMemo(
-    () => sortedLessons.find((l) => l.slug === slug),
-    [sortedLessons, slug]
+    () => sortedLessons.find((l) => l.slug === activeSlug),
+    [sortedLessons, activeSlug]
   );
 
-  const currentProgress = slug ? progressStates[slug] : undefined;
+  const currentProgress = activeSlug ? progressStates[activeSlug] : undefined;
 
   useEffect(() => {
     if (!lesson || (currentProgress && currentProgress.status === "locked")) {
@@ -86,31 +91,31 @@ export default function LessonPage() {
 
   useEffect(() => {
     setAccordionValue("whyItMatters");
-  }, [slug]);
+  }, [activeSlug]);
 
   const parsedQuestions = useMemo(() => lesson?.questions ?? [], [lesson]);
 
   const isCompleted = currentProgress?.status === "completed";
   const isReadOnly = isCompleted;
 
-  const currentIndex = sortedLessons.findIndex((l) => l.slug === slug);
+  const currentIndex = sortedLessons.findIndex((l) => l.slug === activeSlug);
   const isLastLesson = currentIndex === sortedLessons.length - 1;
   const nextLesson = isLastLesson ? null : sortedLessons[currentIndex + 1];
 
   const allCorrect = useMemo(() => {
-    if (!slug || parsedQuestions.length === 0) return false;
+    if (!activeSlug || parsedQuestions.length === 0) return false;
     return parsedQuestions.every((q) => {
-      const key = getQuestionKey(slug, q.questionIndex);
+      const key = getQuestionKey(activeSlug, q.questionIndex);
       return questionStates[key]?.isCorrect === true;
     });
-  }, [slug, parsedQuestions, questionStates]);
+  }, [activeSlug, parsedQuestions, questionStates]);
 
   useEffect(() => {
-    if (allCorrect && slug && currentProgress?.status === "available") {
+    if (allCorrect && activeSlug && currentProgress?.status === "available") {
       setProgressStates((prev) => {
         const updated = { ...prev };
-        updated[slug] = {
-          ...updated[slug],
+        updated[activeSlug] = {
+          ...updated[activeSlug],
           status: "completed",
           allQuestionsCorrect: true,
           completedAt: new Date().toISOString(),
@@ -124,12 +129,12 @@ export default function LessonPage() {
         return updated;
       });
     }
-  }, [allCorrect, slug, currentProgress?.status, nextLesson]);
+  }, [allCorrect, activeSlug, currentProgress?.status, nextLesson]);
 
   const handleAnswer = useCallback(
     (questionIndex: number, answerIndex: number) => {
-      if (!slug) return;
-      const key = getQuestionKey(slug, questionIndex);
+      if (!activeSlug) return;
+      const key = getQuestionKey(activeSlug, questionIndex);
       const question = parsedQuestions.find((q) => q.questionIndex === questionIndex);
       if (!question) return;
 
@@ -138,7 +143,7 @@ export default function LessonPage() {
       setQuestionStates((prev) => ({
         ...prev,
         [key]: {
-          lessonSlug: slug,
+          lessonSlug: activeSlug,
           questionIndex,
           selectedAnswerIndex: answerIndex,
           isCorrect,
@@ -146,7 +151,7 @@ export default function LessonPage() {
         },
       }));
     },
-    [slug, parsedQuestions]
+    [activeSlug, parsedQuestions]
   );
 
   if (!lesson) return null;
@@ -161,7 +166,7 @@ export default function LessonPage() {
           <ProgressIndicator
             lessons={lessonMeta}
             progressStates={progressStates}
-            currentSlug={slug!}
+            currentSlug={activeSlug || ""}
           />
         </div>
       </div>
@@ -171,7 +176,7 @@ export default function LessonPage() {
         {/* Lesson Header */}
         <div className="mb-2">
           <span className="font-heading text-xs font-medium uppercase tracking-widest text-muted-foreground">
-            Lesson {lesson.order}
+            Урок {lesson.order}
           </span>
         </div>
         <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 leading-tight">
@@ -183,7 +188,7 @@ export default function LessonPage() {
           <div className="mb-6 bg-success/10 border border-success/30 rounded-lg px-4 py-2.5 inline-flex items-center gap-2">
             <span className="text-success text-sm">✓</span>
             <span className="font-heading text-xs text-success font-semibold tracking-wide uppercase">
-              Completed
+              Завершено
             </span>
           </div>
         )}
@@ -215,8 +220,8 @@ export default function LessonPage() {
                         <QuestionItem
                           key={q.questionIndex}
                           question={q}
-                          lessonSlug={slug!}
-                          state={questionStates[getQuestionKey(slug!, q.questionIndex)]}
+                          lessonSlug={activeSlug || ""}
+                          state={questionStates[getQuestionKey(activeSlug || "", q.questionIndex)]}
                           readOnly={isReadOnly}
                           onAnswer={handleAnswer}
                         />
@@ -236,16 +241,16 @@ export default function LessonPage() {
           {isLastLesson && isCompleted ? (
             <div className="text-center py-8 bg-card rounded-xl border border-border">
               <p className="font-heading text-lg text-primary font-semibold">
-                🎉 Course Complete
+                🎉 Курс завершен
               </p>
               <p className="text-muted-foreground text-sm mt-2 font-body">
-                You have finished all lessons. Well done!
+                Вы прошли все уроки. Отличная работа!
               </p>
             </div>
           ) : isLastLesson ? (
             <div className="text-center py-4">
               <p className="text-muted-foreground text-sm font-body">
-                Complete all self-check questions to finish the course.
+                Ответьте верно на все вопросы, чтобы завершить курс.
               </p>
             </div>
           ) : (
@@ -260,7 +265,7 @@ export default function LessonPage() {
                 if (nextLesson) navigate(`/lesson/${nextLesson.slug}`);
               }}
             >
-              {allCorrect || isCompleted ? "Continue to Next Lesson →" : "Complete all questions to continue"}
+              {allCorrect || isCompleted ? "Перейти к следующему уроку →" : "Ответьте на все вопросы, чтобы продолжить"}
             </button>
           )}
         </div>

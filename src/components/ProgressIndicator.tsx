@@ -10,6 +10,11 @@ interface ProgressIndicatorProps {
 export function ProgressIndicator({ lessons, progressStates, currentSlug }: ProgressIndicatorProps) {
   const navigate = useNavigate();
   const sorted = [...lessons].sort((a, b) => a.order - b.order);
+  const statusLabels: Record<string, string> = {
+    locked: "заблокирован",
+    available: "доступен",
+    completed: "завершен",
+  };
 
   return (
     <div className="flex items-center justify-center gap-1 flex-wrap py-5">
@@ -43,7 +48,7 @@ export function ProgressIndicator({ lessons, progressStates, currentSlug }: Prog
               onClick={() => {
                 if (isClickable) navigate(`/lesson/${lesson.slug}`);
               }}
-              aria-label={`Lesson ${lesson.order}: ${status}`}
+              aria-label={`Урок ${lesson.order}: ${statusLabels[status] || status}`}
             >
               {status === "completed" && !isCurrent ? "✓" : lesson.order}
             </button>

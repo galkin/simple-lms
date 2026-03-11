@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite-react-ssg dev",
+    "build": "vite-react-ssg build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -91,6 +91,7 @@
     "typescript-eslint": "^8.38.0",
     "velite": "^0.2.4",
     "vite": "^5.4.19",
+    "vite-react-ssg": "^0.9.1-beta.1",
     "vitest": "^3.2.4"
   }
 }
