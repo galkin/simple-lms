@@ -4,58 +4,58 @@
 
 @layer base {
   :root {
-    /* Oblique Systems — monochromatic e-ink palette */
-    --background: 0 0% 7%;          /* Off-Black #111111 */
-    --foreground: 0 0% 95%;         /* Light text on dark surfaces */
+    /* Warm, calm educational palette */
+    --background: 36 33% 96%;          /* Warm off-white #F7F5F1 */
+    --foreground: 30 10% 20%;          /* Dark charcoal for text */
 
-    --card: 0 0% 95%;               /* Paper #F3F3F3 */
-    --card-foreground: 0 0% 10%;    /* Ink #1A1A1A */
+    --card: 36 30% 99%;                /* Soft white surface */
+    --card-foreground: 30 10% 18%;     /* Near-charcoal text */
 
-    --popover: 0 0% 95%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 36 30% 99%;
+    --popover-foreground: 30 10% 18%;
 
-    --primary: 132 100% 60%;        /* System Green #33FF57 */
-    --primary-foreground: 0 0% 7%;  /* Dark text on green */
+    --primary: 160 30% 42%;            /* Sage green */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 14%;          /* Slightly lighter than bg */
-    --secondary-foreground: 0 0% 70%;
+    --secondary: 36 20% 92%;           /* Warm light neutral */
+    --secondary-foreground: 30 10% 30%;
 
-    --muted: 0 0% 18%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 36 15% 93%;
+    --muted-foreground: 30 6% 50%;
 
-    --accent: 132 100% 60%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 160 25% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 65% 51%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 55% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 132 100% 60%;
-    --success-foreground: 0 0% 7%;
+    --success: 152 40% 42%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 132 100% 60%;
+    --border: 36 15% 88%;
+    --input: 36 15% 88%;
+    --ring: 160 30% 42%;
 
-    --radius: 0px;
+    --radius: 0.625rem;
 
     /* Typography */
-    --font-heading: 'Spline Sans Mono', monospace;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'DM Sans', sans-serif;
+    --font-body: 'Source Serif 4', Georgia, serif;
 
     /* Surfaces */
-    --surface-paper: 0 0% 95%;
-    --surface-paper-foreground: 0 0% 10%;
-    --surface-elevated: 0 0% 12%;
+    --surface-paper: 36 30% 99%;
+    --surface-paper-foreground: 30 10% 18%;
+    --surface-elevated: 36 25% 97%;
 
     /* Progress indicator */
-    --progress-locked: 0 0% 22%;
-    --progress-locked-foreground: 0 0% 40%;
-    --progress-available: 0 0% 30%;
-    --progress-available-foreground: 0 0% 80%;
-    --progress-completed: 132 100% 60%;
-    --progress-completed-foreground: 0 0% 7%;
-    --progress-current: 132 100% 60%;
-    --progress-current-foreground: 0 0% 7%;
+    --progress-locked: 36 10% 88%;
+    --progress-locked-foreground: 30 6% 60%;
+    --progress-available: 36 15% 80%;
+    --progress-available-foreground: 30 10% 35%;
+    --progress-completed: 160 30% 42%;
+    --progress-completed-foreground: 0 0% 100%;
+    --progress-current: 160 30% 42%;
+    --progress-current-foreground: 0 0% 100%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -74,7 +74,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
   }
 
@@ -83,11 +83,12 @@
   }
 }
 
-/* Prose styles for rendered markdown inside Paper surface */
+/* Prose styles for rendered markdown */
 .prose-lesson {
   font-family: var(--font-body);
   color: hsl(var(--card-foreground));
-  line-height: 1.75;
+  line-height: 1.8;
+  font-size: 1.0625rem;
 }
 
 .prose-lesson h1,
@@ -96,33 +97,33 @@
 .prose-lesson h4 {
   font-family: var(--font-heading);
   font-weight: 600;
-  margin-top: 1.5em;
+  margin-top: 1.75em;
   margin-bottom: 0.75em;
   color: hsl(var(--card-foreground));
 }
 
 .prose-lesson h2 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   border-bottom: 1px solid hsl(var(--border));
   padding-bottom: 0.5em;
 }
 
 .prose-lesson h3 {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
 }
 
 .prose-lesson p {
-  margin-bottom: 1em;
+  margin-bottom: 1.125em;
 }
 
 .prose-lesson ul,
 .prose-lesson ol {
-  margin-bottom: 1em;
+  margin-bottom: 1.125em;
   padding-left: 1.5em;
 }
 
 .prose-lesson li {
-  margin-bottom: 0.35em;
+  margin-bottom: 0.4em;
 }
 
 .prose-lesson ul li {
@@ -134,35 +135,42 @@
 }
 
 .prose-lesson strong {
-  font-weight: 600;
+  font-weight: 700;
+  color: hsl(30 10% 15%);
 }
 
 .prose-lesson code {
-  font-family: var(--font-heading);
-  font-size: 0.875em;
-  background: hsl(0 0% 88%);
-  padding: 0.15em 0.4em;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+  background: hsl(var(--muted));
+  padding: 0.2em 0.45em;
+  border-radius: 0.3em;
+  color: hsl(var(--card-foreground));
 }
 
 .prose-lesson pre {
-  background: hsl(0 0% 10%);
-  color: hsl(0 0% 90%);
-  padding: 1em;
+  background: hsl(30 10% 15%);
+  color: hsl(36 20% 90%);
+  padding: 1.25em;
   overflow-x: auto;
-  margin-bottom: 1em;
-  font-family: var(--font-heading);
-  font-size: 0.875rem;
+  margin-bottom: 1.25em;
+  border-radius: 0.5em;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 .prose-lesson pre code {
   background: none;
   padding: 0;
   color: inherit;
+  border-radius: 0;
 }
 
 .prose-lesson blockquote {
   border-left: 3px solid hsl(var(--primary));
-  padding-left: 1em;
-  margin-bottom: 1em;
-  color: hsl(0 0% 30%);
+  padding-left: 1.25em;
+  margin-bottom: 1.25em;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
 }
