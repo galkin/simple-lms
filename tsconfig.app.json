@@ -19,6 +19,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "content-collections": [
+        "./.content-collections/generated"
       ]
     },
     "skipLibCheck": true,
