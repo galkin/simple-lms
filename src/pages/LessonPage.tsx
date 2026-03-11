@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { allLessons } from "@/data/lessons";
 import { parseQuestions } from "@/lib/parseQuestions";
-import { renderMarkdown } from "@/lib/markdown";
+
 import {
   loadProgressStates,
   saveProgressStates,
