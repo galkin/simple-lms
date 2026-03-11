@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { allLessons } from "@/data/lessons";
+import { allLessons } from "content-collections";
 import { parseQuestions } from "@/lib/parseQuestions";
 
 import {
