@@ -5,12 +5,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LessonPage from "./pages/LessonPage";
 import NotFound from "./pages/NotFound.tsx";
-import { allLessons } from "content-collections";
+import { lessons } from "#site/content";
 
 const queryClient = new QueryClient();
 
 function getFirstLessonSlug(): string {
-  const sorted = [...allLessons].sort((a, b) => a.order - b.order);
+  const sorted = [...lessons].sort((a, b) => a.order - b.order);
   return sorted[0]?.slug || "";
 }
 

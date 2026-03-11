@@ -1,7 +1,8 @@
----
-slug: 1-intro-to-gemini
-order: 1
+id: 2-gemini-live
+slug: 2-gemini-live
+order: 2
 title: "Getting Started with Gemini by Google"
+
 whyItMatters: |
   Gemini is Google's family of multimodal AI models. If you plan to build modern developer tools, automations, copilots, or agent-style workflows, you need to understand what Gemini is good at and where it fits in practice.
 
@@ -19,9 +20,9 @@ theory: |
 
   Gemini is not one single thing. In practice, people use the word **Gemini** to refer to several related layers:
 
-  - **Gemini models** — the AI models themselves
-  - **Gemini app** — the end-user chat product
-  - **Gemini API / Google AI Studio / Vertex AI** — developer surfaces for building with Gemini
+  - **Gemini models** - the AI models themselves
+  - **Gemini app** - the end-user chat product
+  - **Gemini API / Google AI Studio / Vertex AI** - developer surfaces for building with Gemini
 
   ## Core terms
 
@@ -41,9 +42,9 @@ theory: |
 
   Think about Gemini in three layers:
 
-  1. **Model layer** — what the model can reason about and generate
-  2. **Tooling layer** — how developers access it through APIs and platforms
-  3. **Product layer** — how end users interact with it through UI experiences
+  1. **Model layer** - what the model can reason about and generate
+  2. **Tooling layer** - how developers access it through APIs and platforms
+  3. **Product layer** - how end users interact with it through UI experiences
 
   A common mistake is mixing these layers together. For example, a limitation in the consumer chat interface is not always a limitation of the underlying model API.
 
@@ -93,55 +94,55 @@ practice: |
   - contains at least one realistic developer use case
   - avoids vague marketing language
 
-questions: |
-  ### Question 1
-  What is the most accurate high-level description of Gemini in a developer context?
+questions:
+  - id: q1
+    prompt: |
+      What is the most accurate high-level description of Gemini in a developer context?
+    options:
+      - "A visual design system for Google products"
+      - "A family of AI models and related product/platform surfaces"
+      - "A database optimized for vector search only"
+      - "A browser extension for debugging JavaScript"
+    correctAnswer: 1
 
-  - A visual design system for Google products
-  - A family of AI models and related product/platform surfaces
-  - A database optimized for vector search only
-  - A browser extension for debugging JavaScript
+  - id: q2
+    prompt: |
+      What does multimodal mean?
+    options:
+      - "The model can only generate text faster than older models"
+      - "The model supports more than one kind of input or output, such as text and images"
+      - "The model is automatically connected to the internet"
+      - "The model can only be used inside Google Workspace"
+    correctAnswer: 1
 
-  **Correct answer:** 2
+  - id: q3
+    prompt: |
+      Which statement is correct?
+    options:
+      - "A limitation in a chat UI always proves the underlying model cannot do that task"
+      - "Prompting removes the need for validation and application logic"
+      - "The Gemini app, Gemini models, and Gemini APIs are different layers that should be distinguished"
+      - "If a model is large, product design no longer matters"
+    correctAnswer: 2
 
-  ### Question 2
-  What does multimodal mean?
-
-  - The model can only generate text faster than older models
-  - The model supports more than one kind of input or output, such as text and images
-  - The model is automatically connected to the internet
-  - The model can only be used inside Google Workspace
-
-  **Correct answer:** 2
-
-  ### Question 3
-  Which statement is correct?
-
-  - A limitation in a chat UI always proves the underlying model cannot do that task
-  - Prompting removes the need for validation and application logic
-  - The Gemini app, Gemini models, and Gemini APIs are different layers that should be distinguished
-  - If a model is large, product design no longer matters
-
-  **Correct answer:** 3
-
-  ### Question 4
-  Which of the following is the best example of grounding?
-
-  - Asking the model to be more creative
-  - Connecting the model to external information or tools to improve usefulness
-  - Reducing the font size in the chat interface
-  - Running the same prompt twice without changing anything
-
-  **Correct answer:** 2
+  - id: q4
+    prompt: |
+      Which of the following is the best example of grounding?
+    options:
+      - "Asking the model to be more creative"
+      - "Connecting the model to external information or tools to improve usefulness"
+      - "Reducing the font size in the chat interface"
+      - "Running the same prompt twice without changing anything"
+    correctAnswer: 1
 
 additionalInfo: |
   ## Additional perspective
 
   When evaluating Gemini for real product work, separate these questions:
 
-  1. **Model capability** — can the model perform the task at all?
-  2. **System reliability** — can your application make the task safe and repeatable?
-  3. **UX quality** — can the user understand, verify, and recover from errors?
+  1. **Model capability** - can the model perform the task at all?
+  2. **System reliability** - can your application make the task safe and repeatable?
+  3. **UX quality** - can the user understand, verify, and recover from errors?
 
   This framing is useful well beyond Gemini. It helps you evaluate any modern LLM stack without collapsing everything into raw model quality.
 
@@ -150,8 +151,3 @@ additionalInfo: |
   Before moving on, answer this in one sentence:
 
   **If I were using Gemini inside a real product, what part would I trust the model with, and what part would I keep deterministic?**
----
-
-# Optional body content
-
-This file is intentionally compatible with a Content Collections-style setup where structured lesson data is parsed from frontmatter, while the markdown body can remain optional or be repurposed for content not needed by the lesson UI.

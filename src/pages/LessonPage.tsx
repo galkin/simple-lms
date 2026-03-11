@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { allLessons } from "content-collections";
-import { parseQuestions } from "@/lib/parseQuestions";
+import { lessons } from "#site/content";
 
 import {
   loadProgressStates,
@@ -43,7 +42,7 @@ export default function LessonPage() {
   const navigate = useNavigate();
 
   const sortedLessons = useMemo(
-    () => [...allLessons].sort((a, b) => a.order - b.order),
+    () => [...lessons].sort((a, b) => a.order - b.order),
     []
   );
 
@@ -89,10 +88,7 @@ export default function LessonPage() {
     setAccordionValue("whyItMatters");
   }, [slug]);
 
-  const parsedQuestions = useMemo(
-    () => (lesson ? parseQuestions(lesson.questions) : []),
-    [lesson]
-  );
+  const parsedQuestions = useMemo(() => lesson?.questions ?? [], [lesson]);
 
   const isCompleted = currentProgress?.status === "completed";
   const isReadOnly = isCompleted;

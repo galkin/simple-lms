@@ -8,8 +8,8 @@
       "@/*": [
         "./src/*"
       ],
-      "content-collections": [
-        "./.content-collections/generated"
+      "#site/content": [
+        "./.velite"
       ]
     },
     "skipLibCheck": true,

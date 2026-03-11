@@ -7,7 +7,7 @@ export interface LessonData {
   whyItMatters: string;
   theory: string;
   practice: string;
-  questions: string;
+  questions: ParsedQuestion[];
   additionalInfo: string;
 }
 
