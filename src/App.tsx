@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LessonPage from "./pages/LessonPage";
 import NotFound from "./pages/NotFound.tsx";
-import { allLessons } from "content-collections";
+import { allLessons } from "@/data/lessons";
 
 const queryClient = new QueryClient();
 
